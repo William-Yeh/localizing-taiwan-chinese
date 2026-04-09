@@ -59,6 +59,7 @@ async def localize(req: LocalizeRequest):
     if not req.text.strip():
         raise HTTPException(status_code=422, detail="text must not be empty")
 
+    assert http_client is not None, "http_client not initialised — lifespan not running"
     try:
         resp = await http_client.post(
             f"{OLLAMA_BASE_URL}/api/generate",
